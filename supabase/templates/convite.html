@@ -1,0 +1,13 @@
+<!-- Supabase > Authentication > Email Templates > "Invite user"
+     Assunto sugerido: Seu acesso ao sistema de Reserva de Veículos -->
+<div style="font-family:Segoe UI,Arial,sans-serif;max-width:520px;margin:0 auto;padding:24px;color:#1f2933">
+  <p style="color:#e8790c;font-weight:700;margin:0 0 4px">Reserva de Veículos</p>
+  <h2 style="margin:0 0 12px">Você foi cadastrado!</h2>
+  <p>Olá{{ if .Data.full_name }}, {{ .Data.full_name }}{{ end }}. Seu acesso ao sistema de reserva da frota compartilhada foi criado.</p>
+  <p>Clique no botão abaixo para criar sua senha:</p>
+  <p style="margin:24px 0">
+    <a href="{{ .SiteURL }}?token_hash={{ .TokenHash }}&type=invite"
+       style="background:#e8790c;color:#fff;padding:12px 20px;border-radius:8px;text-decoration:none;font-weight:600">Criar minha senha</a>
+  </p>
+  <p style="color:#52606d;font-size:13px">Seu login é este e-mail: {{ .Email }}. O link expira em 24 horas.</p>
+</div>

@@ -1,0 +1,25 @@
+name: Deploy – Supabase (banco + funções)
+
+# Execução manual: Actions > "Deploy – Supabase" > Run workflow
+on:
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    env:
+      SUPABASE_ACCESS_TOKEN: ${{ secrets.SUPABASE_ACCESS_TOKEN }}
+      SUPABASE_DB_PASSWORD: ${{ secrets.SUPABASE_DB_PASSWORD }}
+      PROJECT_REF: ${{ vars.SUPABASE_PROJECT_REF }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: supabase/setup-cli@v1
+        with:
+          version: latest
+      - run: supabase link --project-ref "$PROJECT_REF"
+      - name: Aplicar migrações
+        run: supabase db push
+      - name: Publicar Edge Functions
+        run: |
+          supabase functions deploy admin-users --project-ref "$PROJECT_REF"
+          supabase functions deploy notify-reservation --no-verify-jwt --project-ref "$PROJECT_REF"

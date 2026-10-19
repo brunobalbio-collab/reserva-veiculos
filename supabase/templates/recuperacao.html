@@ -1,0 +1,12 @@
+<!-- Supabase > Authentication > Email Templates > "Reset password"
+     Assunto sugerido: Redefinição de senha – Reserva de Veículos -->
+<div style="font-family:Segoe UI,Arial,sans-serif;max-width:520px;margin:0 auto;padding:24px;color:#1f2933">
+  <p style="color:#e8790c;font-weight:700;margin:0 0 4px">Reserva de Veículos</p>
+  <h2 style="margin:0 0 12px">Criar ou redefinir senha</h2>
+  <p>Recebemos uma solicitação para criar/redefinir a senha da conta {{ .Email }}.</p>
+  <p style="margin:24px 0">
+    <a href="{{ .SiteURL }}?token_hash={{ .TokenHash }}&type=recovery"
+       style="background:#e8790c;color:#fff;padding:12px 20px;border-radius:8px;text-decoration:none;font-weight:600">Definir senha</a>
+  </p>
+  <p style="color:#52606d;font-size:13px">Se você não solicitou, ignore este e-mail. O link expira em 1 hora.</p>
+</div>

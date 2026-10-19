@@ -1,0 +1,9 @@
+# Configuração usada pelo Supabase CLI (supabase link / db push / functions deploy)
+project_id = "reserva-veiculos"
+
+[functions.admin-users]
+verify_jwt = true
+
+[functions.notify-reservation]
+# Chamada pelo próprio banco (pg_net) com segredo próprio no header x-webhook-secret
+verify_jwt = false
