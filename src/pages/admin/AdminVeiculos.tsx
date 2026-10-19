@@ -1,3 +1,4 @@
+import { confirmDialog } from '../../components/confirm'
 import { useCallback, useEffect, useState, type FormEvent } from 'react'
 import { supabase } from '../../lib/supabase'
 import type { Vehicle } from '../../lib/types'
@@ -61,7 +62,7 @@ export default function AdminVeiculos() {
     const msg = v.active
       ? `Desativar ${v.model} (${v.plate})? Ele deixará de aparecer para reservas. Reservas já feitas não são canceladas.`
       : `Reativar ${v.model} (${v.plate})?`
-    if (!confirm(msg)) return
+    if (!(await confirmDialog(msg))) return
     await supabase.from('vehicles').update({ active: !v.active }).eq('id', v.id)
     load()
   }

@@ -48,6 +48,18 @@ export default function Login() {
           <p className="muted">{COMPANY}</p>
         </div>
 
+        {import.meta.env.VITE_DEMO === '1' && mode === 'login' && (
+          <div className="demo-hint">
+            <strong>Demonstração — entre como:</strong>
+            <button type="button" className="link-btn" onClick={() => { setEmail('admin@demo.com'); setPassword('demo1234') }}>
+              Administrador: admin@demo.com
+            </button>
+            <button type="button" className="link-btn" onClick={() => { setEmail('usuario@demo.com'); setPassword('demo1234') }}>
+              Usuário comum: usuario@demo.com
+            </button>
+            <span className="muted small">Qualquer senha funciona. Os dados voltam ao início ao recarregar.</span>
+          </div>
+        )}
         {error && <div className="alert error">{error}</div>}
         {info && <div className="alert success">{info}</div>}
 

@@ -1,3 +1,4 @@
+import { confirmDialog } from '../../components/confirm'
 import { useCallback, useEffect, useState, type FormEvent } from 'react'
 import { supabase } from '../../lib/supabase'
 import { useAuth } from '../../lib/auth'
@@ -70,7 +71,7 @@ export default function AdminUsuarios() {
 
   async function toggleActive(p: Profile) {
     if (p.id === me?.id) return
-    if (!confirm(p.active ? `Desativar ${p.full_name || p.email}? Ele não conseguirá mais acessar o sistema.` : `Reativar ${p.full_name || p.email}?`)) return
+    if (!(await confirmDialog(p.active ? `Desativar ${p.full_name || p.email}? Ele não conseguirá mais acessar o sistema.` : `Reativar ${p.full_name || p.email}?`))) return
     setError(null)
     try {
       await adminCall({ action: 'set_active', user_id: p.id, active: !p.active })
@@ -83,7 +84,7 @@ export default function AdminUsuarios() {
   async function toggleRole(p: Profile) {
     if (p.id === me?.id) return
     const role: Role = p.role === 'admin' ? 'user' : 'admin'
-    if (!confirm(role === 'admin' ? `Tornar ${p.full_name || p.email} administrador?` : `Remover acesso de administrador de ${p.full_name || p.email}?`)) return
+    if (!(await confirmDialog(role === 'admin' ? `Tornar ${p.full_name || p.email} administrador?` : `Remover acesso de administrador de ${p.full_name || p.email}?`))) return
     const { error } = await supabase.from('profiles').update({ role }).eq('id', p.id)
     if (error) setError(friendlyError(error))
     load()

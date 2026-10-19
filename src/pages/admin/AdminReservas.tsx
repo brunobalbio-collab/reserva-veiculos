@@ -1,3 +1,4 @@
+import { confirmDialog } from '../../components/confirm'
 import { useCallback, useEffect, useState, type FormEvent } from 'react'
 import { supabase } from '../../lib/supabase'
 import { useAuth } from '../../lib/auth'
@@ -46,7 +47,7 @@ export default function AdminReservas() {
   }, [load])
 
   async function cancel(r: Reservation) {
-    if (!confirm(`Cancelar a reserva de ${r.profile?.full_name || r.profile?.email}? O usuário será notificado por e-mail.`)) return
+    if (!(await confirmDialog(`Cancelar a reserva de ${r.profile?.full_name || r.profile?.email}? O usuário será notificado por e-mail.`))) return
     const { error } = await supabase.rpc('cancel_reservation', { p_id: r.id })
     if (error) setError(friendlyError(error))
     load()

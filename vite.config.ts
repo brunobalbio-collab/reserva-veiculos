@@ -6,4 +6,6 @@ import react from '@vitejs/plugin-react'
 export default defineConfig({
   plugins: [react()],
   base: process.env.BASE_PATH ?? '/',
+  // Build de demonstração gera um único arquivo JS (para publicar como página única)
+  build: process.env.VITE_DEMO === '1' ? { rollupOptions: { output: { inlineDynamicImports: true } } } : undefined,
 })

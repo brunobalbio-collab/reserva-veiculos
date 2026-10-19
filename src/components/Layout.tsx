@@ -13,6 +13,11 @@ export default function Layout() {
 
   return (
     <div className="app">
+      {import.meta.env.VITE_DEMO === '1' && (
+        <div className="demo-banner">
+          <strong>Demonstração</strong> — dados fictícios, nada é salvo de verdade. E-mails não são enviados.
+        </div>
+      )}
       <header className="topbar">
         <div className="brand">
           <span className="brand-mark" aria-hidden>

@@ -118,3 +118,10 @@ supabase/
 - Check-out/check-in com km e fotos
 - Aprovação de gestor para reservas longas
 - Relatório de utilização por veículo/área
+
+## Modo demonstração
+Para apresentar o sistema sem backend (dados fictícios em memória):
+```bash
+VITE_DEMO=1 VITE_SUPABASE_URL=https://demo.supabase.co VITE_SUPABASE_ANON_KEY=demo npm run dev
+```
+Entre com `admin@demo.com` ou `usuario@demo.com` (qualquer senha). O código de demonstração só entra no build quando `VITE_DEMO=1`.

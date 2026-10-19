@@ -1,3 +1,4 @@
+import { confirmDialog } from '../components/confirm'
 import { useCallback, useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { supabase } from '../lib/supabase'
@@ -37,7 +38,7 @@ export default function MinhasReservas() {
   }, [load])
 
   async function cancel(r: Reservation) {
-    if (!confirm(`Cancelar a reserva do ${r.vehicle?.model} (${r.vehicle?.plate}) em ${fmtRange(r.starts_at, r.ends_at)}?`)) return
+    if (!(await confirmDialog(`Cancelar a reserva do ${r.vehicle?.model} (${r.vehicle?.plate}) em ${fmtRange(r.starts_at, r.ends_at)}?`))) return
     const { error } = await supabase.rpc('cancel_reservation', { p_id: r.id })
     if (error) setError(friendlyError(error))
     load()

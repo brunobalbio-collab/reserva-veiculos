@@ -6,6 +6,12 @@ import App from './App'
 import './styles.css'
 
 // HashRouter: URLs no formato /#/rota — funciona no GitHub Pages sem configuração extra de servidor.
+// Modo demonstração: simula o backend em memória (somente no build com VITE_DEMO=1)
+if (import.meta.env.VITE_DEMO === '1') {
+  const { installMockBackend } = await import('./demo/mockBackend')
+  installMockBackend()
+}
+
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <HashRouter>
